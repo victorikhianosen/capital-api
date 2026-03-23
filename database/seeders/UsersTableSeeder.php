@@ -37,7 +37,6 @@ class UsersTableSeeder extends Seeder
                 'updated_at' => now()
             ],
 
-            // ✅ NEW USER (Sam)
             [
                 'branch_id' => 1,
                 'first_name' => 'Sam',

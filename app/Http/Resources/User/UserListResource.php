@@ -21,6 +21,10 @@ class UserListResource extends JsonResource
             "email"       => $this->email,
             "phone"       => $this->phone,
             "gender"      => $this->gender,
+
+            "address"      => $this->gender,
+            "city"      => $this->gender,
+            "state"      => $this->gender,
             "role_name"   => $this->getRoleNames()->first(),
         ];
     }

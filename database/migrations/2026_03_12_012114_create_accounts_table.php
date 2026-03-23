@@ -13,41 +13,42 @@ return new class extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
-            $table->string('account_number')->unique();
             $table->string('customer_number')->index();
-            $table->foreignId('customer_id')
-                ->constrained()
-                ->cascadeOnDelete();
+            $table->foreignId('customer_id')->constrained()->cascadeOnDelete();
 
-            $table->foreignId('branch_id')
-                ->nullable()
-                ->constrained()
-                ->nullOnDelete();
+            $table->foreignId('branch_id')->nullable()->constrained()->nullOnDelete()->cascadeOnDelete();
 
-            $table->foreignId('account_product_id')
-                ->constrained('account_products');
+            $table->foreignId('account_product_id')->constrained('account_products')->cascadeOnDelete();
 
-            $table->foreignId('account_type_id')
-                ->constrained('account_types');
+            $table->decimal('account_number')->unique();
 
-            $table->foreignId('currency_id')
-                ->constrained('currencies');
+            $table->foreignId('account_type_id')->constrained('account_types');
 
-            $table->decimal('account_balance', 18, 2)->default(0);
+            $table->foreignId('currency_id')->constrained('currencies')->default('NGN');
+
+            $table->decimal('account_balance', 25, 2)->default(0);
             $table->decimal('available_balance', 18, 2)->default(0);
             $table->tinyInteger('tier')->default(1)->index();
-            $table->enum('status', [
-                'pending',
-                'active',
-                'dormant',
-                'closed',
-                'blocked',
-                'restricted'
-            ])->default('pending');
+            $table->enum('status', ['pending','active','dormant','closed','blocked','restricted'])->default('pending');
 
-            $table->timestamp('opened_at')->nullable();
+
+            // Balances
+            $table->decimal('ledger_balance', 20, 2)->default(0);
+            $table->decimal('available_balance', 20, 2)->default(0);
+
+            // Status
+            $table->enum('status', ['active', 'dormant', 'frozen', 'closed'])->default('active');
+
+            // Controls
+            $table->boolean('pnd')->default(false);
+            $table->boolean('pnc')->default(false);
+
+            // Dates
+            $table->timestamp('last_transaction_at')->nullable();
+            $table->timestamp('closed_at')->nullable();
 
             $table->timestamps();
+            $table->index(['customer_id', 'status']);
         });
     }
 

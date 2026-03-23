@@ -9,8 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class AccountOfficer extends Model
 {
         protected $guarded = [];
-
-
+        
         public function branch()
         {
                 return $this->belongsTo(Branch::class);
