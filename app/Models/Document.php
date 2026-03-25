@@ -4,8 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AccountType extends Model
+class Document extends Model
 {
-            protected $guarded = [];
-
+        protected $guarded = [];
 }

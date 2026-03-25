@@ -11,12 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('account_categories', function (Blueprint $table) {
+        Schema::create('next_of_kin', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('customer_id')->constrained('customers')->cascadeOnDelete();
             $table->string('name');
-            $table->string('code')->unique();
-            $table->enum('status', ['pending','active','inactive'])->default('pending');
+            $table->string('relationship');
+            $table->string('address');
+            $table->string('phone');
+
+            $table->string('customer_number')->index();
+
             $table->timestamps();
         });
     }
@@ -26,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('account_categories');
+        Schema::dropIfExists('next_of_kin');
     }
 };

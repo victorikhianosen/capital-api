@@ -21,9 +21,14 @@ class DatabaseSeeder extends Seeder
         $this->call([
             BranchSeeder::class,
             UsersTableSeeder::class,
-
             RolesAndPermissionsSeeder::class,
-            SettingsSeeder::class
+            SettingsSeeder::class,
+
+            CurrencySeeder::class,
+
+            AccountCategorySeeder::class,
+            AccountTypeSeeder::class,
+            AccountProductSeeder::class,
         ]);
         // RolesAndPermissionsSeeder::class
 

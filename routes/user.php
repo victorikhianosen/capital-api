@@ -3,6 +3,7 @@
 use App\Http\Controllers\User\AccountOfficerController;
 use App\Http\Controllers\User\BranchController;
 use App\Http\Controllers\User\CurrencyController;
+use App\Http\Controllers\User\CustomerController;
 use App\Http\Controllers\User\PermissionController;
 use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\SettingsController;
@@ -90,6 +91,16 @@ Route::middleware('user')->group(function () {
     Route::prefix('currencies')->group(function () {
         Route::get('list', [CurrencyController::class, 'index']);
     });
+
+
+      Route::prefix('customer')->group(function () {
+        Route::post('/', [CustomerController::class, 'store']);
+
+    });
+
+
+
+
 
        // SETTINGS
     Route::prefix('account-officers')->group(function () {
